@@ -10,19 +10,26 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as SettingsLayoutRouteRouteImport } from './routes/_settingsLayout/route'
+import { Route as SettingsLayoutRouteImport } from './routes/_settingsLayout'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as SettingsPasswordRouteImport } from './routes/settings_/password'
-import { Route as SettingsLayoutSettingsIndexRouteImport } from './routes/_settingsLayout/settings/index'
-import { Route as SettingsLayoutSettingsProfileRouteImport } from './routes/_settingsLayout/settings/profile'
-import { Route as SettingsLayoutSettingsPaymentsRouteImport } from './routes/_settingsLayout/settings/payments'
+import { Route as ProductsIndexRouteImport } from './routes/products.index'
+import { Route as PostsIndexRouteImport } from './routes/posts.index'
+import { Route as PostsPostIdRouteImport } from './routes/posts.$postId'
+import { Route as FileSplatRouteImport } from './routes/file.$'
+import { Route as SettingsLayoutSettingsRouteImport } from './routes/_settingsLayout.settings'
+import { Route as Char123LocaleChar125ArchiveChar123YearChar125RouteImport } from './routes/{-$locale}.archive.{-$year}'
+import { Route as PostsPostIdEditRouteImport } from './routes/posts_.$postId.edit'
+import { Route as FileFileChar123fileIdChar125SplatRouteImport } from './routes/file.file-{$fileId}.$'
+import { Route as SettingsLayoutSettingsPasswordRouteImport } from './routes/_settingsLayout.settings_.password'
+import { Route as SettingsLayoutSettingsProfileRouteImport } from './routes/_settingsLayout.settings.profile'
+import { Route as SettingsLayoutSettingsPaymentsRouteImport } from './routes/_settingsLayout.settings.payments'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SettingsLayoutRouteRoute = SettingsLayoutRouteRouteImport.update({
+const SettingsLayoutRoute = SettingsLayoutRouteImport.update({
   id: '/_settingsLayout',
   getParentRoute: () => rootRouteImport,
 } as any)
@@ -31,89 +38,174 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SettingsPasswordRoute = SettingsPasswordRouteImport.update({
-  id: '/settings_/password',
-  path: '/settings/password',
+const ProductsIndexRoute = ProductsIndexRouteImport.update({
+  id: '/products/',
+  path: '/products/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SettingsLayoutSettingsIndexRoute =
-  SettingsLayoutSettingsIndexRouteImport.update({
-    id: '/settings/',
-    path: '/settings/',
-    getParentRoute: () => SettingsLayoutRouteRoute,
+const PostsIndexRoute = PostsIndexRouteImport.update({
+  id: '/posts/',
+  path: '/posts/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PostsPostIdRoute = PostsPostIdRouteImport.update({
+  id: '/posts/$postId',
+  path: '/posts/$postId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FileSplatRoute = FileSplatRouteImport.update({
+  id: '/file/$',
+  path: '/file/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsLayoutSettingsRoute = SettingsLayoutSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => SettingsLayoutRoute,
+} as any)
+const Char123LocaleChar125ArchiveChar123YearChar125Route =
+  Char123LocaleChar125ArchiveChar123YearChar125RouteImport.update({
+    id: '/{-$locale}/archive/{-$year}',
+    path: '/{-$locale}/archive/{-$year}',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PostsPostIdEditRoute = PostsPostIdEditRouteImport.update({
+  id: '/posts_/$postId/edit',
+  path: '/posts/$postId/edit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FileFileChar123fileIdChar125SplatRoute =
+  FileFileChar123fileIdChar125SplatRouteImport.update({
+    id: '/file/file-{$fileId}/$',
+    path: '/file/file-{$fileId}/$',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const SettingsLayoutSettingsPasswordRoute =
+  SettingsLayoutSettingsPasswordRouteImport.update({
+    id: '/settings_/password',
+    path: '/settings/password',
+    getParentRoute: () => SettingsLayoutRoute,
   } as any)
 const SettingsLayoutSettingsProfileRoute =
   SettingsLayoutSettingsProfileRouteImport.update({
-    id: '/settings/profile',
-    path: '/settings/profile',
-    getParentRoute: () => SettingsLayoutRouteRoute,
+    id: '/profile',
+    path: '/profile',
+    getParentRoute: () => SettingsLayoutSettingsRoute,
   } as any)
 const SettingsLayoutSettingsPaymentsRoute =
   SettingsLayoutSettingsPaymentsRouteImport.update({
-    id: '/settings/payments',
-    path: '/settings/payments',
-    getParentRoute: () => SettingsLayoutRouteRoute,
+    id: '/payments',
+    path: '/payments',
+    getParentRoute: () => SettingsLayoutSettingsRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/settings/password': typeof SettingsPasswordRoute
+  '/settings': typeof SettingsLayoutSettingsRouteWithChildren
+  '/file/$': typeof FileSplatRoute
+  '/posts/$postId': typeof PostsPostIdRoute
+  '/posts': typeof PostsIndexRoute
+  '/products': typeof ProductsIndexRoute
   '/settings/payments': typeof SettingsLayoutSettingsPaymentsRoute
   '/settings/profile': typeof SettingsLayoutSettingsProfileRoute
-  '/settings': typeof SettingsLayoutSettingsIndexRoute
+  '/settings/password': typeof SettingsLayoutSettingsPasswordRoute
+  '/file/file-{$fileId}/$': typeof FileFileChar123fileIdChar125SplatRoute
+  '/posts/$postId/edit': typeof PostsPostIdEditRoute
+  '/{-$locale}/archive/{-$year}': typeof Char123LocaleChar125ArchiveChar123YearChar125Route
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/settings/password': typeof SettingsPasswordRoute
+  '/settings': typeof SettingsLayoutSettingsRouteWithChildren
+  '/file/$': typeof FileSplatRoute
+  '/posts/$postId': typeof PostsPostIdRoute
+  '/posts': typeof PostsIndexRoute
+  '/products': typeof ProductsIndexRoute
   '/settings/payments': typeof SettingsLayoutSettingsPaymentsRoute
   '/settings/profile': typeof SettingsLayoutSettingsProfileRoute
-  '/settings': typeof SettingsLayoutSettingsIndexRoute
+  '/settings/password': typeof SettingsLayoutSettingsPasswordRoute
+  '/file/file-{$fileId}/$': typeof FileFileChar123fileIdChar125SplatRoute
+  '/posts/$postId/edit': typeof PostsPostIdEditRoute
+  '/{-$locale}/archive/{-$year}': typeof Char123LocaleChar125ArchiveChar123YearChar125Route
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/_settingsLayout': typeof SettingsLayoutRouteRouteWithChildren
+  '/_settingsLayout': typeof SettingsLayoutRouteWithChildren
   '/about': typeof AboutRoute
-  '/settings_/password': typeof SettingsPasswordRoute
+  '/_settingsLayout/settings': typeof SettingsLayoutSettingsRouteWithChildren
+  '/file/$': typeof FileSplatRoute
+  '/posts/$postId': typeof PostsPostIdRoute
+  '/posts/': typeof PostsIndexRoute
+  '/products/': typeof ProductsIndexRoute
   '/_settingsLayout/settings/payments': typeof SettingsLayoutSettingsPaymentsRoute
   '/_settingsLayout/settings/profile': typeof SettingsLayoutSettingsProfileRoute
-  '/_settingsLayout/settings/': typeof SettingsLayoutSettingsIndexRoute
+  '/_settingsLayout/settings_/password': typeof SettingsLayoutSettingsPasswordRoute
+  '/file/file-{$fileId}/$': typeof FileFileChar123fileIdChar125SplatRoute
+  '/posts_/$postId/edit': typeof PostsPostIdEditRoute
+  '/{-$locale}/archive/{-$year}': typeof Char123LocaleChar125ArchiveChar123YearChar125Route
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
-    | '/settings/password'
+    | '/settings'
+    | '/file/$'
+    | '/posts/$postId'
+    | '/posts'
+    | '/products'
     | '/settings/payments'
     | '/settings/profile'
-    | '/settings'
+    | '/settings/password'
+    | '/file/file-{$fileId}/$'
+    | '/posts/$postId/edit'
+    | '/{-$locale}/archive/{-$year}'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
-    | '/settings/password'
+    | '/settings'
+    | '/file/$'
+    | '/posts/$postId'
+    | '/posts'
+    | '/products'
     | '/settings/payments'
     | '/settings/profile'
-    | '/settings'
+    | '/settings/password'
+    | '/file/file-{$fileId}/$'
+    | '/posts/$postId/edit'
+    | '/{-$locale}/archive/{-$year}'
   id:
     | '__root__'
     | '/'
     | '/_settingsLayout'
     | '/about'
-    | '/settings_/password'
+    | '/_settingsLayout/settings'
+    | '/file/$'
+    | '/posts/$postId'
+    | '/posts/'
+    | '/products/'
     | '/_settingsLayout/settings/payments'
     | '/_settingsLayout/settings/profile'
-    | '/_settingsLayout/settings/'
+    | '/_settingsLayout/settings_/password'
+    | '/file/file-{$fileId}/$'
+    | '/posts_/$postId/edit'
+    | '/{-$locale}/archive/{-$year}'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  SettingsLayoutRouteRoute: typeof SettingsLayoutRouteRouteWithChildren
+  SettingsLayoutRoute: typeof SettingsLayoutRouteWithChildren
   AboutRoute: typeof AboutRoute
-  SettingsPasswordRoute: typeof SettingsPasswordRoute
+  FileSplatRoute: typeof FileSplatRoute
+  PostsPostIdRoute: typeof PostsPostIdRoute
+  PostsIndexRoute: typeof PostsIndexRoute
+  ProductsIndexRoute: typeof ProductsIndexRoute
+  FileFileChar123fileIdChar125SplatRoute: typeof FileFileChar123fileIdChar125SplatRoute
+  PostsPostIdEditRoute: typeof PostsPostIdEditRoute
+  Char123LocaleChar125ArchiveChar123YearChar125Route: typeof Char123LocaleChar125ArchiveChar123YearChar125Route
 }
 
 declare module '@tanstack/react-router' {
@@ -129,7 +221,7 @@ declare module '@tanstack/react-router' {
       id: '/_settingsLayout'
       path: ''
       fullPath: ''
-      preLoaderRoute: typeof SettingsLayoutRouteRouteImport
+      preLoaderRoute: typeof SettingsLayoutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -139,57 +231,129 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/settings_/password': {
-      id: '/settings_/password'
-      path: '/settings/password'
-      fullPath: '/settings/password'
-      preLoaderRoute: typeof SettingsPasswordRouteImport
+    '/products/': {
+      id: '/products/'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof ProductsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_settingsLayout/settings/': {
-      id: '/_settingsLayout/settings/'
+    '/posts/': {
+      id: '/posts/'
+      path: '/posts'
+      fullPath: '/posts'
+      preLoaderRoute: typeof PostsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/posts/$postId': {
+      id: '/posts/$postId'
+      path: '/posts/$postId'
+      fullPath: '/posts/$postId'
+      preLoaderRoute: typeof PostsPostIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/file/$': {
+      id: '/file/$'
+      path: '/file/$'
+      fullPath: '/file/$'
+      preLoaderRoute: typeof FileSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_settingsLayout/settings': {
+      id: '/_settingsLayout/settings'
       path: '/settings'
       fullPath: '/settings'
-      preLoaderRoute: typeof SettingsLayoutSettingsIndexRouteImport
-      parentRoute: typeof SettingsLayoutRouteRoute
+      preLoaderRoute: typeof SettingsLayoutSettingsRouteImport
+      parentRoute: typeof SettingsLayoutRoute
+    }
+    '/{-$locale}/archive/{-$year}': {
+      id: '/{-$locale}/archive/{-$year}'
+      path: '/{-$locale}/archive/{-$year}'
+      fullPath: '/{-$locale}/archive/{-$year}'
+      preLoaderRoute: typeof Char123LocaleChar125ArchiveChar123YearChar125RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/posts_/$postId/edit': {
+      id: '/posts_/$postId/edit'
+      path: '/posts/$postId/edit'
+      fullPath: '/posts/$postId/edit'
+      preLoaderRoute: typeof PostsPostIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/file/file-{$fileId}/$': {
+      id: '/file/file-{$fileId}/$'
+      path: '/file/file-{$fileId}/$'
+      fullPath: '/file/file-{$fileId}/$'
+      preLoaderRoute: typeof FileFileChar123fileIdChar125SplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_settingsLayout/settings_/password': {
+      id: '/_settingsLayout/settings_/password'
+      path: '/settings/password'
+      fullPath: '/settings/password'
+      preLoaderRoute: typeof SettingsLayoutSettingsPasswordRouteImport
+      parentRoute: typeof SettingsLayoutRoute
     }
     '/_settingsLayout/settings/profile': {
       id: '/_settingsLayout/settings/profile'
-      path: '/settings/profile'
+      path: '/profile'
       fullPath: '/settings/profile'
       preLoaderRoute: typeof SettingsLayoutSettingsProfileRouteImport
-      parentRoute: typeof SettingsLayoutRouteRoute
+      parentRoute: typeof SettingsLayoutSettingsRoute
     }
     '/_settingsLayout/settings/payments': {
       id: '/_settingsLayout/settings/payments'
-      path: '/settings/payments'
+      path: '/payments'
       fullPath: '/settings/payments'
       preLoaderRoute: typeof SettingsLayoutSettingsPaymentsRouteImport
-      parentRoute: typeof SettingsLayoutRouteRoute
+      parentRoute: typeof SettingsLayoutSettingsRoute
     }
   }
 }
 
-interface SettingsLayoutRouteRouteChildren {
+interface SettingsLayoutSettingsRouteChildren {
   SettingsLayoutSettingsPaymentsRoute: typeof SettingsLayoutSettingsPaymentsRoute
   SettingsLayoutSettingsProfileRoute: typeof SettingsLayoutSettingsProfileRoute
-  SettingsLayoutSettingsIndexRoute: typeof SettingsLayoutSettingsIndexRoute
 }
 
-const SettingsLayoutRouteRouteChildren: SettingsLayoutRouteRouteChildren = {
-  SettingsLayoutSettingsPaymentsRoute: SettingsLayoutSettingsPaymentsRoute,
-  SettingsLayoutSettingsProfileRoute: SettingsLayoutSettingsProfileRoute,
-  SettingsLayoutSettingsIndexRoute: SettingsLayoutSettingsIndexRoute,
+const SettingsLayoutSettingsRouteChildren: SettingsLayoutSettingsRouteChildren =
+  {
+    SettingsLayoutSettingsPaymentsRoute: SettingsLayoutSettingsPaymentsRoute,
+    SettingsLayoutSettingsProfileRoute: SettingsLayoutSettingsProfileRoute,
+  }
+
+const SettingsLayoutSettingsRouteWithChildren =
+  SettingsLayoutSettingsRoute._addFileChildren(
+    SettingsLayoutSettingsRouteChildren,
+  )
+
+interface SettingsLayoutRouteChildren {
+  SettingsLayoutSettingsRoute: typeof SettingsLayoutSettingsRouteWithChildren
+  SettingsLayoutSettingsPasswordRoute: typeof SettingsLayoutSettingsPasswordRoute
 }
 
-const SettingsLayoutRouteRouteWithChildren =
-  SettingsLayoutRouteRoute._addFileChildren(SettingsLayoutRouteRouteChildren)
+const SettingsLayoutRouteChildren: SettingsLayoutRouteChildren = {
+  SettingsLayoutSettingsRoute: SettingsLayoutSettingsRouteWithChildren,
+  SettingsLayoutSettingsPasswordRoute: SettingsLayoutSettingsPasswordRoute,
+}
+
+const SettingsLayoutRouteWithChildren = SettingsLayoutRoute._addFileChildren(
+  SettingsLayoutRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  SettingsLayoutRouteRoute: SettingsLayoutRouteRouteWithChildren,
+  SettingsLayoutRoute: SettingsLayoutRouteWithChildren,
   AboutRoute: AboutRoute,
-  SettingsPasswordRoute: SettingsPasswordRoute,
+  FileSplatRoute: FileSplatRoute,
+  PostsPostIdRoute: PostsPostIdRoute,
+  PostsIndexRoute: PostsIndexRoute,
+  ProductsIndexRoute: ProductsIndexRoute,
+  FileFileChar123fileIdChar125SplatRoute:
+    FileFileChar123fileIdChar125SplatRoute,
+  PostsPostIdEditRoute: PostsPostIdEditRoute,
+  Char123LocaleChar125ArchiveChar123YearChar125Route:
+    Char123LocaleChar125ArchiveChar123YearChar125Route,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
