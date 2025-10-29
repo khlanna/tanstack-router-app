@@ -34,7 +34,7 @@ function RootComponent() {
           </button>
         )}
       </div>
-      <div className="flex gap-2 mb-8  p-2 flex-wrap bg-lime-700">
+      <div className="flex gap-x-6 mb-8  p-2 flex-wrap bg-lime-700">
         <Link
           to="/"
           className="[&.active]:font-bold  "

@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as RandomWordsRouteImport } from './routes/random-words'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as SettingsLayoutRouteImport } from './routes/_settingsLayout'
 import { Route as IndexRouteImport } from './routes/index'
@@ -28,6 +29,11 @@ import { Route as SettingsLayoutSettingsPaymentsRouteImport } from './routes/_se
 const RandomWordsRoute = RandomWordsRouteImport.update({
   id: '/random-words',
   path: '/random-words',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -108,6 +114,7 @@ const SettingsLayoutSettingsPaymentsRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/login': typeof LoginRoute
   '/random-words': typeof RandomWordsRoute
   '/settings': typeof SettingsLayoutSettingsRouteWithChildren
   '/file/$': typeof FileSplatRoute
@@ -124,6 +131,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/login': typeof LoginRoute
   '/random-words': typeof RandomWordsRoute
   '/settings': typeof SettingsLayoutSettingsRouteWithChildren
   '/file/$': typeof FileSplatRoute
@@ -142,6 +150,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_settingsLayout': typeof SettingsLayoutRouteWithChildren
   '/about': typeof AboutRoute
+  '/login': typeof LoginRoute
   '/random-words': typeof RandomWordsRoute
   '/_settingsLayout/settings': typeof SettingsLayoutSettingsRouteWithChildren
   '/file/$': typeof FileSplatRoute
@@ -160,6 +169,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/login'
     | '/random-words'
     | '/settings'
     | '/file/$'
@@ -176,6 +186,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/login'
     | '/random-words'
     | '/settings'
     | '/file/$'
@@ -193,6 +204,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_settingsLayout'
     | '/about'
+    | '/login'
     | '/random-words'
     | '/_settingsLayout/settings'
     | '/file/$'
@@ -211,6 +223,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SettingsLayoutRoute: typeof SettingsLayoutRouteWithChildren
   AboutRoute: typeof AboutRoute
+  LoginRoute: typeof LoginRoute
   RandomWordsRoute: typeof RandomWordsRoute
   FileSplatRoute: typeof FileSplatRoute
   PostsPostIdRoute: typeof PostsPostIdRoute
@@ -228,6 +241,13 @@ declare module '@tanstack/react-router' {
       path: '/random-words'
       fullPath: '/random-words'
       preLoaderRoute: typeof RandomWordsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -365,6 +385,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SettingsLayoutRoute: SettingsLayoutRouteWithChildren,
   AboutRoute: AboutRoute,
+  LoginRoute: LoginRoute,
   RandomWordsRoute: RandomWordsRoute,
   FileSplatRoute: FileSplatRoute,
   PostsPostIdRoute: PostsPostIdRoute,

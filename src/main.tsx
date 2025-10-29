@@ -25,7 +25,7 @@ declare module "@tanstack/react-router" {
 }
 
 function App() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>({ id: "1", name: "John Doe" });
 
   function loggedIn(user: User) {
     flushSync(() => {
