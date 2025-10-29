@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RandomWordsRouteImport } from './routes/random-words'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as SettingsLayoutRouteImport } from './routes/_settingsLayout'
 import { Route as IndexRouteImport } from './routes/index'
@@ -24,6 +25,11 @@ import { Route as SettingsLayoutSettingsPasswordRouteImport } from './routes/_se
 import { Route as SettingsLayoutSettingsProfileRouteImport } from './routes/_settingsLayout.settings.profile'
 import { Route as SettingsLayoutSettingsPaymentsRouteImport } from './routes/_settingsLayout.settings.payments'
 
+const RandomWordsRoute = RandomWordsRouteImport.update({
+  id: '/random-words',
+  path: '/random-words',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -102,6 +108,7 @@ const SettingsLayoutSettingsPaymentsRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/random-words': typeof RandomWordsRoute
   '/settings': typeof SettingsLayoutSettingsRouteWithChildren
   '/file/$': typeof FileSplatRoute
   '/posts/$postId': typeof PostsPostIdRoute
@@ -117,6 +124,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/random-words': typeof RandomWordsRoute
   '/settings': typeof SettingsLayoutSettingsRouteWithChildren
   '/file/$': typeof FileSplatRoute
   '/posts/$postId': typeof PostsPostIdRoute
@@ -134,6 +142,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_settingsLayout': typeof SettingsLayoutRouteWithChildren
   '/about': typeof AboutRoute
+  '/random-words': typeof RandomWordsRoute
   '/_settingsLayout/settings': typeof SettingsLayoutSettingsRouteWithChildren
   '/file/$': typeof FileSplatRoute
   '/posts/$postId': typeof PostsPostIdRoute
@@ -151,6 +160,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/random-words'
     | '/settings'
     | '/file/$'
     | '/posts/$postId'
@@ -166,6 +176,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/random-words'
     | '/settings'
     | '/file/$'
     | '/posts/$postId'
@@ -182,6 +193,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_settingsLayout'
     | '/about'
+    | '/random-words'
     | '/_settingsLayout/settings'
     | '/file/$'
     | '/posts/$postId'
@@ -199,6 +211,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SettingsLayoutRoute: typeof SettingsLayoutRouteWithChildren
   AboutRoute: typeof AboutRoute
+  RandomWordsRoute: typeof RandomWordsRoute
   FileSplatRoute: typeof FileSplatRoute
   PostsPostIdRoute: typeof PostsPostIdRoute
   PostsIndexRoute: typeof PostsIndexRoute
@@ -210,6 +223,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/random-words': {
+      id: '/random-words'
+      path: '/random-words'
+      fullPath: '/random-words'
+      preLoaderRoute: typeof RandomWordsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -345,6 +365,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SettingsLayoutRoute: SettingsLayoutRouteWithChildren,
   AboutRoute: AboutRoute,
+  RandomWordsRoute: RandomWordsRoute,
   FileSplatRoute: FileSplatRoute,
   PostsPostIdRoute: PostsPostIdRoute,
   PostsIndexRoute: PostsIndexRoute,

@@ -10,6 +10,9 @@ const searchSchema = z.object({
 export const Route = createFileRoute("/posts/")({
   component: RouteComponent,
   validateSearch: zodValidator(searchSchema),
+  pendingComponent: () => {
+    return <div className="text-yellow-500">Loading...</div>;
+  },
   beforeLoad: () => {
     return {
       getPosts: getPosts,

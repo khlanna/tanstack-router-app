@@ -44,6 +44,7 @@ export async function getPost(id: number) {
 }
 export async function getPostComments(id: number) {
   const res = await fetch(`https://dummyjson.com/posts/${id}/comments`);
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   if (res.ok) {
     return (await res.json()) as PostCommentsResponse;
   } else {

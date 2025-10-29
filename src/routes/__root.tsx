@@ -14,6 +14,9 @@ interface RouteContext {
 
 export const Route = createRootRouteWithContext<RouteContext>()({
   component: RootComponent,
+  notFoundComponent: () => {
+    return <div className="text-red-500">Not Found</div>;
+  },
 });
 
 function RootComponent() {
@@ -21,7 +24,7 @@ function RootComponent() {
   return (
     <div className=" p-2">
       <h1 className="text-2xl font-bold">Root Router</h1>
-      <div className="flex gap-2 mb-8  bg-blue-400 p-2 flex-wrap">
+      <div className="flex gap-2 mb-8 p-2 flex-wrap">
         {user ? <div>Hello {user.name}</div> : <div>Hello Guest</div>}
         {user ? (
           <button onClick={loggedOut}>Logout</button>
@@ -31,7 +34,7 @@ function RootComponent() {
           </button>
         )}
       </div>
-      <div className="flex gap-2 mb-8  bg-blue-400 p-2 flex-wrap">
+      <div className="flex gap-2 mb-8  p-2 flex-wrap bg-lime-700">
         <Link
           to="/"
           className="[&.active]:font-bold  "
@@ -74,6 +77,9 @@ function RootComponent() {
           Products
         </Link>
 
+        <Link to="/random-words" className="[&.active]:font-bold  ">
+          Random Words
+        </Link>
         <Link to="/settings" className="[&.active]:font-bold  ">
           Settings
         </Link>

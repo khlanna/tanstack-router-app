@@ -9,6 +9,8 @@ import { flushSync } from "react-dom";
 
 const router = createRouter({
   routeTree,
+  defaultPreload: "intent",
+  // defaultPreloadDelay: 100,
   context: {
     user: null,
     loggedIn: () => {},
