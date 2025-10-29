@@ -11,14 +11,15 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as RandomWordsRouteImport } from './routes/random-words'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as AboutRouteImport } from './routes/about'
 import { Route as SettingsLayoutRouteImport } from './routes/_settingsLayout'
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as PostsIndexRouteImport } from './routes/posts.index'
 import { Route as PostsPostIdRouteImport } from './routes/posts.$postId'
 import { Route as FileSplatRouteImport } from './routes/file.$'
 import { Route as SettingsLayoutSettingsRouteImport } from './routes/_settingsLayout.settings'
+import { Route as AuthenticatedAboutRouteImport } from './routes/_authenticated.about'
 import { Route as Char123LocaleChar125ArchiveChar123YearChar125RouteImport } from './routes/{-$locale}.archive.{-$year}'
 import { Route as PostsPostIdEditRouteImport } from './routes/posts_.$postId.edit'
 import { Route as FileFileChar123fileIdChar125SplatRouteImport } from './routes/file.file-{$fileId}.$'
@@ -36,13 +37,12 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const SettingsLayoutRoute = SettingsLayoutRouteImport.update({
   id: '/_settingsLayout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -74,6 +74,11 @@ const SettingsLayoutSettingsRoute = SettingsLayoutSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
   getParentRoute: () => SettingsLayoutRoute,
+} as any)
+const AuthenticatedAboutRoute = AuthenticatedAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => AuthenticatedRoute,
 } as any)
 const Char123LocaleChar125ArchiveChar123YearChar125Route =
   Char123LocaleChar125ArchiveChar123YearChar125RouteImport.update({
@@ -113,9 +118,9 @@ const SettingsLayoutSettingsPaymentsRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
   '/login': typeof LoginRoute
   '/random-words': typeof RandomWordsRoute
+  '/about': typeof AuthenticatedAboutRoute
   '/settings': typeof SettingsLayoutSettingsRouteWithChildren
   '/file/$': typeof FileSplatRoute
   '/posts/$postId': typeof PostsPostIdRoute
@@ -130,9 +135,9 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
   '/login': typeof LoginRoute
   '/random-words': typeof RandomWordsRoute
+  '/about': typeof AuthenticatedAboutRoute
   '/settings': typeof SettingsLayoutSettingsRouteWithChildren
   '/file/$': typeof FileSplatRoute
   '/posts/$postId': typeof PostsPostIdRoute
@@ -148,10 +153,11 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/_settingsLayout': typeof SettingsLayoutRouteWithChildren
-  '/about': typeof AboutRoute
   '/login': typeof LoginRoute
   '/random-words': typeof RandomWordsRoute
+  '/_authenticated/about': typeof AuthenticatedAboutRoute
   '/_settingsLayout/settings': typeof SettingsLayoutSettingsRouteWithChildren
   '/file/$': typeof FileSplatRoute
   '/posts/$postId': typeof PostsPostIdRoute
@@ -168,9 +174,9 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/about'
     | '/login'
     | '/random-words'
+    | '/about'
     | '/settings'
     | '/file/$'
     | '/posts/$postId'
@@ -185,9 +191,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/about'
     | '/login'
     | '/random-words'
+    | '/about'
     | '/settings'
     | '/file/$'
     | '/posts/$postId'
@@ -202,10 +208,11 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/_settingsLayout'
-    | '/about'
     | '/login'
     | '/random-words'
+    | '/_authenticated/about'
     | '/_settingsLayout/settings'
     | '/file/$'
     | '/posts/$postId'
@@ -221,8 +228,8 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   SettingsLayoutRoute: typeof SettingsLayoutRouteWithChildren
-  AboutRoute: typeof AboutRoute
   LoginRoute: typeof LoginRoute
   RandomWordsRoute: typeof RandomWordsRoute
   FileSplatRoute: typeof FileSplatRoute
@@ -250,18 +257,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_settingsLayout': {
       id: '/_settingsLayout'
       path: ''
       fullPath: ''
       preLoaderRoute: typeof SettingsLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthenticatedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -305,6 +312,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/settings'
       preLoaderRoute: typeof SettingsLayoutSettingsRouteImport
       parentRoute: typeof SettingsLayoutRoute
+    }
+    '/_authenticated/about': {
+      id: '/_authenticated/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AuthenticatedAboutRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
     '/{-$locale}/archive/{-$year}': {
       id: '/{-$locale}/archive/{-$year}'
@@ -351,6 +365,18 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedRouteChildren {
+  AuthenticatedAboutRoute: typeof AuthenticatedAboutRoute
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedAboutRoute: AuthenticatedAboutRoute,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
+
 interface SettingsLayoutSettingsRouteChildren {
   SettingsLayoutSettingsPaymentsRoute: typeof SettingsLayoutSettingsPaymentsRoute
   SettingsLayoutSettingsProfileRoute: typeof SettingsLayoutSettingsProfileRoute
@@ -383,8 +409,8 @@ const SettingsLayoutRouteWithChildren = SettingsLayoutRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
   SettingsLayoutRoute: SettingsLayoutRouteWithChildren,
-  AboutRoute: AboutRoute,
   LoginRoute: LoginRoute,
   RandomWordsRoute: RandomWordsRoute,
   FileSplatRoute: FileSplatRoute,
